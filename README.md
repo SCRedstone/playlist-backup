@@ -1,4 +1,4 @@
-# playlist-tool
+# playlist-backup
 I 'quickly' put this together to identify deleted songs/videos. It's very rough and the UX sucks, but it works.
 
 ## Functionality
