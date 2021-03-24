@@ -118,3 +118,5 @@ if len(songID_local) > 0:
         print("\t" + str(username_local[x]) + " - " + str(song_local[x]))
 else:
     print("\nNo missing songs found! Might be a good idea to make a new backup.")
+
+input("Press anything to exit.")
