@@ -4,7 +4,7 @@ Have you never noticed songs disappearing from your favourite YouTube/Soundcloud
 * Creates backups of YouTube and Soundcloud playlists
 * Identifies deleted playlist contents by comparing it to your backups
 
-#### DOWNLOAD ~~now~~ COMING SOON!
+#### [DOWNLOAD NOW!](https://github.com/SCRedstone/playlist-backup/releases)
 
 ## Disclaimers
 Due to rate limiting issues, <b>users must provide their own YouTube and Soundcloud API keys</b> for this tool to work. This program does not store any user data except for the required API keys entered by the user.
