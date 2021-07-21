@@ -1,21 +1,22 @@
-# playlist-backup
-I 'quickly' put this together to identify deleted songs/videos. It's very rough and the UX sucks, but it works.
+# Redstone's Playlist Backup Tool
+Have you never noticed songs disappearing from your favourite YouTube/Soundcloud music playlists? This tool:
 
-## Functionality
-* Create JSON backups of YouTube and Soundcloud Playlists
-* Identify deleted songs and videos from given JSON backups
+* Creates backups of YouTube and Soundcloud playlists
+* Identifies deleted playlist contents by comparing it to your backups
 
-## Usage Disclaimers
-You must provide your own YouTube and Soundcloud keys for this to work (no stealing my keys sry) due to rate limiting issues. It's imperative to make sure your YouTube quota hasn't been reached before running either program. Soundcloud has no quota.
+#### DOWNLOAD ~~now~~ COMING SOON!
 
-## Setup
-1. I used Python 3.8. This program probably works for any Python 3.x, but who knows
-2. Install [Soundcloud](https://github.com/soundcloud/soundcloud-python) and [YouTube](https://developers.google.com/youtube/v3/quickstart/python) libraries
-3. Obtain YouTube API credentials
-   * Ensure you enable the full `youtube` scope
-4. Paste your standard YouTube API key in `YT_devkey` field of `./auth/auth-keys.json`
-5. Get Soundcloud credentials and fill in `client_id` of `.auth/auth-keys.json`.
+## Disclaimers
+Due to rate limiting issues, <b>users must provide their own YouTube and Soundcloud API keys</b> for this tool to work. This program does not store any user data except for the required API keys entered by the user.
 
-## Programs
-* Use `PLAYLIST_BACKUP.py` to save specified playlists as JSON files, saved in `./backup`
-* Use `BACKUP-CHECKER.py` to check for deleted videos using the specified JSON playlist backup
+## First-time Setup
+1. Obtain the necessary YouTube and/or Soundcloud API key(s). If you don't use Soundcloud for example, you don't need to get a Soundcloud API key.
+   * For YouTube API, ensure `youtube` scope is enabled.
+2. Launch the program and paste the API key(s) via <b>Settings > Auth Keys</b>, then save.
+
+## Usage Notes
+* Please ensure your API quota has not been met. This prevents errors and fragmented backups.
+* <b>Ensure all playlists are public/unlisted</b>, otherwise the program can't access the playlist.
+* Backups save into the program's `backup` folder.
+
+###### Latest version: v0.7.21
