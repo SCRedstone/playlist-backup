@@ -1,12 +1,3 @@
-'''
-        Custom things to do maybe:
-- Display the playlist name being saved
-- Select where backup files go via Options in Menu bar
-- Implement checking to see if backup JSON file has proper structure to be analyzed (low priority)
-- Maybe sort backupCheckerUtil output into a table instead
-- Get some cool app icon
-'''
-
 import json
 import os
 import webbrowser
@@ -21,7 +12,7 @@ def main():
         sg.theme('SystemDefault')
 
         menu_def = [['Menu', ['Help', 'About', '---', 'Exit']],
-                    ['Settings', ['Auth Keys', '!Backup Save Path']]]
+                    ['Settings', ['Auth Keys', 'Backup Save Path']]]
         layout = [[sg.Menu(menu_def)],
                   [sg.Text('Enter a playlist ID to back up:')],
                   [sg.InputText(do_not_clear=False, size=(100, 1))],
@@ -48,12 +39,15 @@ def main():
 
             # Opens popup about the program
             elif event == 'About':
-                sg.Popup("PLAYLIST BACKUP, v0.7.21\n\nA small program to make backups of Soundcloud and YouTube "
+                sg.Popup("PLAYLIST BACKUP, v0.7.3\n\nA small program to make backups of Soundcloud and YouTube "
                          "playlists in order to identify deleted/removed songs.\n\nThanks for your support!\n\t"
                          "- Redstone", title="About")
 
             elif event == 'Auth Keys':
                 editor()
+
+            elif event == "Backup Save Path":
+                sg.popup("TBD!")
 
             # BACKUP MAKER
             elif event == "Back up!":
@@ -79,7 +73,7 @@ def main():
         window.close()
 
     except Exception as e:
-        sg.popup(str(e), title="ERROR!")
+        sg.popup(str(e), "\nPlease report unexpected errors to the Github page!", title="ERROR!")
 
 
 if __name__ == "__main__":
