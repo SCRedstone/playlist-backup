@@ -36,7 +36,7 @@ def yt_get(set_id, DEVELOPER_KEY):
         response = request.execute()
         extractedToken = json_extract(response, "nextPageToken")  # Gets nextPageToken
         counter += 1
-        print("\tFetching page " + str(counter))
+        print("\tFetching page " + str(counter))  # Debug
         result.append(response)  # Adds JSON response to a list of JSON responses
 
     return result
@@ -90,7 +90,7 @@ def backupChecker(playlistData):
         extracted = sc_get(playlistID_local, CLIENT_ID)
         x, y, songID_new, z = sc_extract(extracted)  # Only need song ID
     else:
-        print("Major error.")
+        sg.popup("Major error.")
 
     # Removes IDs found online if there are songs that were removed
     for i in songID_new:
