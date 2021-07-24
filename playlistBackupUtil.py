@@ -63,7 +63,7 @@ def backupMaker(playlistID):
         client = "YT"
 
     # File saving
-    fileName = "backup/" + client + datetime.datetime.now().strftime("%Y%m%d %H.%M.%S") + ".json"
+    fileName = "backup/" + client + " - " + datetime.datetime.now().strftime("%Y-%m-%d %H.%M.%S") + ".json"
     with open(fileName, 'w', encoding='utf8') as outfile:
         json.dump(extracted, outfile, indent=2, ensure_ascii=False)
     sg.Popup("Saved!")

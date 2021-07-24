@@ -90,7 +90,7 @@ def backupChecker(playlistData):
         extracted = sc_get(playlistID_local, CLIENT_ID)
         x, y, songID_new, z = sc_extract(extracted)  # Only need song ID
     else:
-        sg.popup("Major error.", title="ERROR!")
+        print("Major error.")
 
     # Removes IDs found online if there are songs that were removed
     for i in songID_new:

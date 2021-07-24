@@ -112,7 +112,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# Custom
-.idea/
-To-Do.txt
