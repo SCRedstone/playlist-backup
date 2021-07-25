@@ -5,6 +5,7 @@ import PySimpleGUI as sg
 from backupCheckerUtil import backupChecker
 from playlistBackupUtil import backupMaker
 from authKeyUtil import editor
+from savePath import setSave
 
 
 def main():
@@ -24,6 +25,8 @@ def main():
 
         # Create the Window
         window = sg.Window('Playlist Backup Tool', layout, size=(420, 211))
+
+        savePath = "backup/"  # File save location
 
         # Event Loop to process "events" and get the "values" of the inputs
         while True:
@@ -47,7 +50,7 @@ def main():
                 editor()
 
             elif event == "Backup Save Path":
-                sg.popup("WIP!")
+                savePath = setSave()
 
             # BACKUP MAKER
             elif event == "Back up!":

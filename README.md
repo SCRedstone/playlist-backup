@@ -7,7 +7,8 @@ Have you never noticed songs disappearing from your favourite YouTube/Soundcloud
 #### [DOWNLOAD NOW!](https://github.com/SCRedstone/playlist-backup/releases)
 
 ## Disclaimers
-Due to rate limiting issues, <b>users must provide their own YouTube and Soundcloud API keys</b> for this tool to work. This program does not store any user data except for the required API keys entered by the user.
+* Due to rate limiting issues, <b>users must provide their own YouTube and Soundcloud API keys</b> for this tool to work.
+* Windows only
 
 ## First-time Setup
 1. Obtain the necessary YouTube and/or Soundcloud API key(s). If you don't use Soundcloud for example, you don't need to get a Soundcloud API key.
@@ -19,4 +20,4 @@ Due to rate limiting issues, <b>users must provide their own YouTube and Soundcl
 * <b>Ensure all playlists are public/unlisted</b>, otherwise the program can't access the playlist.
 * Backups save into the program's `backup` folder.
 
-###### Latest version: v0.7.21
+###### Latest version: v0.7.3
