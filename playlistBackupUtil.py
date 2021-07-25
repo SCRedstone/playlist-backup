@@ -8,6 +8,7 @@ import time
 from utils.extract import json_extract
 import urllib.request
 import PySimpleGUI as sg
+from savePath import getSave
 
 
 def sc_get(set_id, CLIENT_ID):
@@ -46,6 +47,8 @@ def yt_get(set_id, DEVELOPER_KEY):
 # MAIN PROGRAM
 def backupMaker(playlistID):
 
+    savePath = getSave()
+
     # Get API keys from file
     with open("auth/auth-keys.json") as f:
         keys = json.load(f)
@@ -63,7 +66,7 @@ def backupMaker(playlistID):
         client = "YT"
 
     # File saving
-    fileName = "backup/" + client + datetime.datetime.now().strftime("%Y%m%d %H.%M.%S") + ".json"
+    fileName = savePath + client + "-" + datetime.datetime.now().strftime("%Y%m%d-%H.%M.%S") + ".json"
     with open(fileName, 'w', encoding='utf8') as outfile:
         json.dump(extracted, outfile, indent=2, ensure_ascii=False)
     sg.Popup("Saved!")
