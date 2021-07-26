@@ -1,4 +1,5 @@
-# YOUTUBE/SOUNDCLOUD BACKUP TOOL #
+''' PLAYLIST BACKUP creates backups for YouTube and Soundcloud '''
+
 import os
 import googleapiclient.discovery
 import googleapiclient.errors
@@ -8,7 +9,6 @@ import time
 from utils.extract import json_extract
 import urllib.request
 import PySimpleGUI as sg
-from savePath import getSave
 
 
 def sc_get(set_id, CLIENT_ID):
@@ -47,13 +47,12 @@ def yt_get(set_id, DEVELOPER_KEY):
 # MAIN PROGRAM
 def backupMaker(playlistID):
 
-    savePath = getSave()
-
     # Get API keys from file
-    with open("auth/auth-keys.json") as f:
+    with open("./config.json") as f:
         keys = json.load(f)
     CLIENT_ID = keys["client_id"]
     DEVELOPER_KEY = keys["YT_devkey"]
+    savePath = keys["savePath"]
 
     extracted = ""
     client = ""
@@ -64,6 +63,8 @@ def backupMaker(playlistID):
     except ValueError:
         extracted = yt_get(playlistID, DEVELOPER_KEY)
         client = "YT"
+    finally:
+        sg.popup("Fatal error..", title="ERROR!")
 
     # File saving
     fileName = savePath + client + "-" + datetime.datetime.now().strftime("%Y%m%d-%H.%M.%S") + ".json"
