@@ -2,31 +2,28 @@ import json
 import os
 import webbrowser
 import PySimpleGUI as sg
-from backupCheckerUtil import backupChecker
-from playlistBackupUtil import backupMaker
-from authKeyUtil import editor
-from savePath import setSave
+from utils.backupCheckerUtil import backupChecker
+from utils.playlistBackupUtil import backupMaker
+from utils.optionsUtil import editor
 
 
 def main():
+    sg.theme('SystemDefault')
+
+    menu_def = [['Menu', ['Help', 'About', '---', 'Exit']],
+                ['Options', ['Settings', '!Colour Theme']]]
+    layout = [[sg.Menu(menu_def)],
+              [sg.Text('Enter a playlist ID to back up:')],
+              [sg.InputText(do_not_clear=False, size=(100, 1))],
+              [sg.Button('Back up!')],
+              [sg.Text('_'*55)],  # Horizontal separator
+              [sg.Text('Check a playlist against your backup:')],
+              [sg.InputText(key='inputFile', do_not_clear=False, size=(46, 1)), sg.FileBrowse(target='inputFile')],
+              [sg.Button('Check!')]]
+
+    window = sg.Window('Playlist Backup Tool', layout, size=(420, 211))
+
     try:
-        sg.theme('SystemDefault')
-
-        menu_def = [['Menu', ['Help', 'About', '---', 'Exit']],
-                    ['Settings', ['Auth Keys', 'Backup Save Path']]]
-        layout = [[sg.Menu(menu_def)],
-                  [sg.Text('Enter a playlist ID to back up:')],
-                  [sg.InputText(do_not_clear=False, size=(100, 1))],
-                  [sg.Button('Back up!')],
-                  [sg.Text('_'*55)],  # Horizontal separator
-                  [sg.Text('Check a playlist against your backup:')],
-                  [sg.InputText(key='inputFile', do_not_clear=False, size=(46, 1)), sg.FileBrowse(target='inputFile')],
-                  [sg.Button('Check!')]]
-
-        # Create the Window
-        window = sg.Window('Playlist Backup Tool', layout, size=(420, 211))
-
-        savePath = "backup/"  # File save location
 
         # Event Loop to process "events" and get the "values" of the inputs
         while True:
@@ -46,11 +43,11 @@ def main():
                          "playlists in order to identify deleted/removed songs.\n\nThanks for your support!\n\t"
                          "- Redstone", title="About")
 
-            elif event == 'Auth Keys':
+            elif event == 'Settings':
                 editor()
 
-            elif event == "Backup Save Path":
-                savePath = setSave()
+            elif event == "Colour Theme":
+                sg.popup("WIP")
 
             # BACKUP MAKER
             elif event == "Back up!":

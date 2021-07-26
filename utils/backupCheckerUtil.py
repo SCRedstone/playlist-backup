@@ -1,4 +1,5 @@
-# BACKUP CHECKER uses pre-made backup json files to check and identify deleted YT/SC songs in a playlist
+''' BACKUP CHECKER uses pre-made backup json files to check and identify deleted YT/SC songs in a playlist '''
+
 import os
 import googleapiclient.discovery
 import googleapiclient.errors
@@ -69,7 +70,7 @@ def sc_extract(data):
 def backupChecker(playlistData):
 
     # Get API keys from file
-    with open("auth/auth-keys.json") as f:
+    with open("./config.json") as f:
         keys = json.load(f)
     CLIENT_ID = keys["client_id"]
     DEVELOPER_KEY = keys["YT_devkey"]
