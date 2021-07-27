@@ -8,7 +8,7 @@ Have you never noticed songs disappearing from your favourite YouTube/Soundcloud
 
 ## Disclaimers
 * Due to rate limiting issues, <b>users must provide their own YouTube and Soundcloud API keys</b> for this tool to work.
-* Windows only
+* Windows OS only
 
 ## First-time Setup
 1. Obtain the necessary YouTube and/or Soundcloud API key(s). If you don't use Soundcloud for example, you don't need to get a Soundcloud API key.
