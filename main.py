@@ -11,7 +11,7 @@ def main():
     sg.theme('SystemDefault')
 
     menu_def = [['Menu', ['Help', 'About', '---', 'Exit']],
-                ['Options', ['Settings', '!Colour Theme']]]
+                ['Options', ['Settings']]]
     layout = [[sg.Menu(menu_def)],
               [sg.Text('Enter a playlist ID to back up:')],
               [sg.InputText(do_not_clear=False, size=(100, 1))],
@@ -45,9 +45,6 @@ def main():
 
             elif event == 'Settings':
                 editor()
-
-            elif event == "Colour Theme":
-                sg.popup("WIP")
 
             # BACKUP MAKER
             elif event == "Back up!":
