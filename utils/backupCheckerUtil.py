@@ -74,6 +74,7 @@ def backupChecker(playlistData):
         keys = json.load(f)
     CLIENT_ID = keys["client_id"]
     DEVELOPER_KEY = keys["YT_devkey"]
+
     username_local, song_local, songID_local, playlistID_local = [], [], [], ""
     songID_new = []  # Stores newly retrieved song IDs
     try:
@@ -85,9 +86,15 @@ def backupChecker(playlistData):
 
     # Extracts IDs from local playlist
     if clientType == "YT":
+        if DEVELOPER_KEY == "":
+            sg.popup("YouTube API key is missing! Please check your settings.\n\nPlease report unexpected errors to the Github Issues page!", title="ERROR!")
+            return
         extracted = yt_get(playlistID_local, DEVELOPER_KEY)
         x, y, songID_new, z = yt_extract(extracted)  # Only need song ID
     elif clientType == "SC":
+        if CLIENT_ID == "":
+            sg.popup("Soundcloud API key is missing! Please check your settings.\n\nPlease report unexpected errors to the Github Issues page!", title="ERROR!")
+            return
         extracted = sc_get(playlistID_local, CLIENT_ID)
         x, y, songID_new, z = sc_extract(extracted)  # Only need song ID
     else:

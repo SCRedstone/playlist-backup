@@ -63,8 +63,6 @@ def backupMaker(playlistID):
     except ValueError:
         extracted = yt_get(playlistID, DEVELOPER_KEY)
         client = "YT"
-    finally:
-        sg.popup("Fatal error..", title="ERROR!")
 
     # File saving
     fileName = savePath + client + "-" + datetime.datetime.now().strftime("%Y%m%d-%H.%M.%S") + ".json"
