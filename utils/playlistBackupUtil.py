@@ -1,14 +1,14 @@
 ''' PLAYLIST BACKUP creates backups for YouTube and Soundcloud '''
 
+import json
 import os
+import time
+import urllib.request
+from datetime import datetime
+import PySimpleGUI as sg
 import googleapiclient.discovery
 import googleapiclient.errors
-import json
-import datetime
-import time
 from utils.extract import json_extract
-import urllib.request
-import PySimpleGUI as sg
 
 
 def sc_get(set_id, CLIENT_ID):
@@ -65,7 +65,7 @@ def backupMaker(playlistID):
         client = "YT"
 
     # File saving
-    fileName = savePath + client + "-" + datetime.datetime.now().strftime("%Y%m%d-%H.%M.%S") + ".json"
+    fileName = savePath + client + "-" + datetime.now().strftime("%Y%m%d-%H.%M.%S") + ".json"
     with open(fileName, 'w', encoding='utf8') as outfile:
         json.dump(extracted, outfile, indent=2, ensure_ascii=False)
     sg.Popup("Saved!")
