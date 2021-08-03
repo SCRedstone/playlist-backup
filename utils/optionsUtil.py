@@ -11,13 +11,13 @@ def editor():
         keys = json.load(f)
     saveLocation = keys["savePath"]
 
-    layout = [[sg.Text("Soundcloud API Key:"), sg.InputText(keys["client_id"], key="SCKey", size=(39, 1))],
-              [sg.Text("YouTube API Key:"), sg.InputText(keys["YT_devkey"], key="YTKey", size=(41, 1))],
-              [sg.Text("_"*58)],
-              [sg.Text("Select where to save your backups:")],
+    layout = [[sg.T("Soundcloud API Key:", size=(15, 1)), sg.InputText(keys["client_id"], key="SCKey", size=(40, 1))],
+              [sg.T("YouTube API Key:", size=(15, 1)), sg.InputText(keys["YT_devkey"], key="YTKey", size=(40, 1))],
+              [sg.T("_"*59)],
+              [sg.T("Select where to save your backups:")],
               [sg.InputText(key='directory', size=(50, 1)), sg.FolderBrowse(target='directory')],
-              [sg.Text("Current save location: " + saveLocation)],
-              [sg.B("Save"), sg.Cancel()]]
+              [sg.T("Current save location: " + saveLocation)],
+              [sg.B("Save", size=(5, 1)), sg.Cancel()]]
 
     window = sg.Window("Options", layout, modal=True)
 
@@ -37,7 +37,7 @@ def editor():
                 with open("./config.json", 'w', encoding='utf8') as outfile:  # Writes keys to file
                     json.dump(keys, outfile, indent=2, ensure_ascii=False)
             except Exception as e:
-                sg.popup("Program encountered an error saving..\n", str(e), title="ERROR")
+                sg.popup("Program encountered an error saving..\n", str(e), title="Error")
             break
 
     window.close()
