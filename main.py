@@ -7,9 +7,9 @@ from utils.optionsUtil import editor
 from utils.playlistBackupUtil import backupMaker
 
 
-def main():
-    sg.theme('SystemDefault')
-    menu_def = [['Menu', ['Settings', '---', 'Exit']],
+def main(theme_name):
+    sg.theme(theme_name)
+    menu_def = [['Menu', ['Settings', 'Change Theme', '---', 'Exit']],
                 ['Help', ['!Check for Update', 'Open Github', '---', 'About']]]
     layout = [[sg.Menu(menu_def)],
               [sg.Text('Enter a playlist ID to back up:')],
@@ -56,6 +56,21 @@ def main():
             elif event == 'Settings':
                 editor()
 
+            elif event == 'Change Theme':
+                theme_window = sg.Window("Themes",
+                                         [[sg.T("Current theme: " + theme_name)],
+                                          [sg.Listbox(values=sg.theme_list(), key="themes", size=(21, 11))],
+                                          [sg.OK()]],
+                                         modal=True)
+                while True:
+                    events, values = theme_window.read()
+                    if events == sg.WIN_CLOSED:
+                        break
+                    elif events == "OK":
+                        theme_window.close()
+                        window.close()
+                        return values["themes"][0]
+
             # BACKUP MAKER
             elif event == "Back up!":
                 if values[1] == "":  # If field is empty, nothing happens
@@ -94,6 +109,10 @@ def main():
 
         error_window.close()
 
+    return None
+
 
 if __name__ == "__main__":
-    main()
+    theme = 'SystemDefault'  # Default theme
+    while theme is not None:
+        theme = main(theme)
