@@ -1,5 +1,6 @@
 {
   "client_id": "",
   "YT_devkey": "",
-  "savePath": "backup/"
+  "savePath": "backup/",
+  "theme": "SystemDefault"
 }
