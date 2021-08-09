@@ -1,4 +1,5 @@
 import json
+import requests
 from os import path
 from webbrowser import open as webpage
 import PySimpleGUI as sg
@@ -9,8 +10,8 @@ from utils.playlistBackupUtil import backupMaker
 
 def main(theme_name):
     sg.theme(theme_name)
-    menu_def = [['Menu', ['Settings', 'Change Theme', '---', 'Exit']],
-                ['Help', ['!Check for Update', 'Open Github', '---', 'About']]]
+    menu_def = [['Menu', ['Settings', 'Themes', '---', 'Exit']],
+                ['Help', ['Check for Update', 'Open Github', '---', 'About']]]
     layout = [[sg.Menu(menu_def)],
               [sg.Text('Enter a playlist ID to back up:')],
               [sg.InputText(do_not_clear=False, size=(100, 1))],
@@ -56,7 +57,8 @@ def main(theme_name):
             elif event == 'Settings':
                 editor()
 
-            elif event == 'Change Theme':
+            # Change colour schemes
+            elif event == 'Themes':
                 theme_window = sg.Window("Themes",
                                          [[sg.T("Current theme: " + theme_name)],
                                           [sg.Listbox(values=sg.theme_list(), key="themes", size=(21, 11))],
@@ -67,9 +69,14 @@ def main(theme_name):
                     if events == sg.WIN_CLOSED:
                         break
                     elif events == "OK":
+                        with open("config.json") as f:
+                            config = json.load(f)
+                        config['theme'] = values['themes'][0]
+                        with open("config.json", 'w', encoding='utf8') as outfile:  # Saves theme to config file
+                            json.dump(config, outfile, indent=2, ensure_ascii=False)
                         theme_window.close()
                         window.close()
-                        return values["themes"][0]
+                        return True
 
             # BACKUP MAKER
             elif event == "Back up!":
@@ -109,10 +116,12 @@ def main(theme_name):
 
         error_window.close()
 
-    return None
+    return False
 
 
 if __name__ == "__main__":
-    theme = 'SystemDefault'  # Default theme
-    while theme is not None:
-        theme = main(theme)
+    restart = True
+    while restart is True:
+        with open("config.json") as f:
+            config = json.load(f)
+        restart = main(config['theme'])  # Returns True to trigger a restart
