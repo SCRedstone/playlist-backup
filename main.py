@@ -3,6 +3,7 @@ import requests
 from os import path
 from webbrowser import open as webpage
 import PySimpleGUI as sg
+from utils.errorPopupUtil import error
 from utils.backupCheckerUtil import backupChecker
 from utils.optionsUtil import editor
 from utils.playlistBackupUtil import backupMaker
@@ -50,7 +51,6 @@ def main(theme_name):
                     events, values = about_window.read()
                     if events == sg.WIN_CLOSED or events == "OK":
                         break
-
                 about_window.close()
 
             # Opens settings via the menu bar
@@ -102,19 +102,7 @@ def main(theme_name):
         window.close()
 
     except Exception as e:
-        error_window = sg.Window("Error",
-                            [[sg.Multiline(str(e), size=(45, 5), disabled=True)],
-                             [sg.Text("Report unexpected errors on Github", enable_events=True, tooltip="Launch browser", key="link", font=("Helvetica", 9, "underline"), text_color="blue")],
-                             [sg.OK(size=(41, 1))]],
-                            modal=True, finalize=True)
-        while True:
-            events, values = error_window.read()
-            if events == sg.WIN_CLOSED or events == "OK":
-                break
-            elif events == "link":
-                webpage("https://github.com/SCRedstone/playlist-backup/issues", new=1)
-
-        error_window.close()
+        error(e)
 
     return False
 
@@ -122,6 +110,10 @@ def main(theme_name):
 if __name__ == "__main__":
     restart = True
     while restart is True:
-        with open("config.json") as f:
-            config = json.load(f)
+        try:
+            with open("config.json") as file:
+                config = json.load(file)
+        except Exception as e:
+            error(e)
+            break
         restart = main(config['theme'])  # Returns True to trigger a restart

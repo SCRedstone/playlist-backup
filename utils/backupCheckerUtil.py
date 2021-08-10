@@ -102,7 +102,7 @@ def backupChecker(playlistData):
 
     # Removes IDs found online if there are songs that were removed
     for i in songID_new:
-        if i in songID_local:
+        if i in songID_local:  # If ID is in both local and online, remove ID from both
             index = songID_local.index(i)
             songID_local.remove(i)
             username_local.pop(index)

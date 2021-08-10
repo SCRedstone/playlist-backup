@@ -1,4 +1,4 @@
-''' Options menu edits the program options via config.json '''
+''' Options menu edits settings in config.json '''
 
 import json
 import PySimpleGUI as sg
@@ -32,12 +32,8 @@ def editor():
             keys["YT_devkey"] = values["YTKey"]
             if values["directory"] != "":  # If the field is empty, it won't save a blank
                 keys["savePath"] = values["directory"] + "/"
-
-            try:
-                with open("./config.json", 'w', encoding='utf8') as outfile:  # Writes keys to file
-                    json.dump(keys, outfile, indent=2, ensure_ascii=False)
-            except Exception as e:
-                sg.popup("Program encountered an error saving..\n", str(e), title="Error")
+            with open("./config.json", 'w', encoding='utf8') as outfile:  # Writes keys to file
+                json.dump(keys, outfile, indent=2, ensure_ascii=False)
             break
 
     window.close()
