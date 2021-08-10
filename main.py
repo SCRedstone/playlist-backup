@@ -78,6 +78,36 @@ def main(theme_name):
                         window.close()
                         return True
 
+            # Check for new versions of this program on Github
+            elif event == "Check for Update":
+                update_window = None  # update_window init
+                try:
+                    ver_full = requests.get("https://api.github.com/repos/SCRedstone/playlist-backup/releases/latest").json()["tag_name"]
+                    ver_int = int("".join(filter(str.isdigit, ver_full)))  # Strips response to only numbers
+                except Exception as e:  # Mostly for if no internet
+                    error("Versioning could not be retrieved at this time.\n" + str(e))
+                    continue
+                if 81 < ver_int:
+                    update_window = sg.Window("Updater",
+                                              [[sg.T("A new update is available!", size=(25, 1))],
+                                               [sg.T("Current version: v0.8.1")],
+                                               [sg.T("New version: " + ver_full)],
+                                               [sg.B("Open download page"), sg.B("Maybe later", key="OK")]],
+                                              modal=True)
+                else:
+                    update_window = sg.Window("Updater",
+                                              [[sg.T("There are no new updates available.\n")],
+                                               [sg.B("OK")]],
+                                              modal=True)
+
+                while True:
+                    events, values = update_window.read()
+                    if events == sg.WIN_CLOSED or events == "OK":
+                        break
+                    elif events == "Open download page":
+                        webpage("https://github.com/SCRedstone/playlist-backup/releases", new=1)
+                update_window.close()
+
             # BACKUP MAKER
             elif event == "Back up!":
                 if values[1] == "":  # If field is empty, nothing happens
@@ -89,13 +119,13 @@ def main(theme_name):
                 if values['inputFile'] == "":  # If field is empty, nothing happens
                     continue
                 elif path.isfile(values['inputFile']) is False:  # If path is not found
-                    sg.popup("File not found!")
+                    error("File not found!")
                     continue
                 try:  # See if file is JSON (doesn't check if it's actually in proper format)
                     with open(values['inputFile'], encoding='utf-8') as f:
                         playlistData = json.load(f)
                 except Exception as e:
-                    sg.popup("Invalid JSON file.\n", str(e), title="Error")
+                    error("Invalid JSON file.\n" + str(e))
                     continue
                 backupChecker(playlistData)
 
@@ -113,7 +143,7 @@ if __name__ == "__main__":
         try:
             with open("config.json") as file:
                 config = json.load(file)
-        except Exception as e:
-            error(e)
+        except Exception as err:
+            error(err)
             break
         restart = main(config['theme'])  # Returns True to trigger a restart

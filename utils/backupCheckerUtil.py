@@ -6,6 +6,7 @@ import googleapiclient.errors
 import json
 import time
 from utils.extract import json_extract
+from utils.errorPopupUtil import error
 import urllib.request
 import PySimpleGUI as sg
 
@@ -87,18 +88,16 @@ def backupChecker(playlistData):
     # Extracts IDs from local playlist
     if clientType == "YT":
         if DEVELOPER_KEY == "":
-            sg.popup("YouTube API key is missing! Please check your settings.\n\nPlease report unexpected errors to the Github Issues page!", title="ERROR!")
+            error("YouTube API key is missing! Please check your settings.")
             return
         extracted = yt_get(playlistID_local, DEVELOPER_KEY)
         x, y, songID_new, z = yt_extract(extracted)  # Only need song ID
     elif clientType == "SC":
         if CLIENT_ID == "":
-            sg.popup("Soundcloud API key is missing! Please check your settings.\n\nPlease report unexpected errors to the Github Issues page!", title="ERROR!")
+            error("Soundcloud API key is missing! Please check your settings.")
             return
         extracted = sc_get(playlistID_local, CLIENT_ID)
         x, y, songID_new, z = sc_extract(extracted)  # Only need song ID
-    else:
-        sg.popup("Major error.")
 
     # Removes IDs found online if there are songs that were removed
     for i in songID_new:
