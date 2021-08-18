@@ -96,7 +96,7 @@ def main(theme_name):
                                               modal=True)
                 else:
                     update_window = sg.Window("Updater",
-                                              [[sg.T("There are no new updates available.\n")],
+                                              [[sg.T("There are no new updates at this time.\n")],
                                                [sg.B("OK")]],
                                               modal=True)
 

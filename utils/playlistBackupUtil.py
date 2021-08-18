@@ -8,8 +8,8 @@ from datetime import datetime
 import PySimpleGUI as sg
 import googleapiclient.discovery
 import googleapiclient.errors
-from utils.extract import json_extract
 from utils.errorPopupUtil import error
+from utils.extract import json_extract
 
 
 def sc_get(set_id, CLIENT_ID):
@@ -55,15 +55,15 @@ def backupMaker(playlistID):
     DEVELOPER_KEY = keys["YT_devkey"]
     savePath = keys["savePath"]
 
-    extracted, client = "", ""
-    try:
+    extracted, client = "", ""  # Init
+    if playlistID.isdigit():  # If playlistID is an integer
         playlistID = int(playlistID)
         if CLIENT_ID == "":
             error("Soundcloud API key is missing! Please check your settings.")
             return
         extracted = sc_get(playlistID, CLIENT_ID)
         client = "SC"
-    except ValueError:
+    else:  # Otherwise it's a string
         if DEVELOPER_KEY == "":
             error("YouTube API key is missing! Please check your settings.")
             return

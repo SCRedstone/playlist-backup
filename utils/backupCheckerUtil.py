@@ -1,14 +1,15 @@
 ''' BACKUP CHECKER uses pre-made backup json files to check and identify deleted YT/SC songs in a playlist '''
 
-import os
-import googleapiclient.discovery
-import googleapiclient.errors
 import json
+import os
 import time
-from utils.extract import json_extract
-from utils.errorPopupUtil import error
 import urllib.request
 import PySimpleGUI as sg
+import googleapiclient.discovery
+import googleapiclient.errors
+import requests
+from utils.errorPopupUtil import error
+from utils.extract import json_extract
 
 
 def sc_get(set_id, CLIENT_ID):
@@ -76,7 +77,7 @@ def backupChecker(playlistData):
     CLIENT_ID = keys["client_id"]
     DEVELOPER_KEY = keys["YT_devkey"]
 
-    username_local, song_local, songID_local, playlistID_local = [], [], [], ""
+    username_local, song_local, songID_local, playlistID_local, title = [], [], [], "", "<PLAYLIST NAME>"
     songID_new = []  # Stores newly retrieved song IDs
     try:
         username_local, song_local, songID_local, playlistID_local = yt_extract(playlistData)
@@ -92,12 +93,16 @@ def backupChecker(playlistData):
             return
         extracted = yt_get(playlistID_local, DEVELOPER_KEY)
         x, y, songID_new, z = yt_extract(extracted)  # Only need song ID
+        title = requests.get("https://www.googleapis.com/youtube/v3/playlists?part=snippet%2Clocalizations&id=" +
+                             str(playlistID_local) + "&fields=items(localizations%2Csnippet%2Flocalized%2Ftitle)&key=" +
+                             DEVELOPER_KEY).json()["items"][0]["snippet"]["localized"]["title"]  # Grabs playlist name
     elif clientType == "SC":
         if CLIENT_ID == "":
             error("Soundcloud API key is missing! Please check your settings.")
             return
         extracted = sc_get(playlistID_local, CLIENT_ID)
         x, y, songID_new, z = sc_extract(extracted)  # Only need song ID
+        title = extracted["title"]  # Extract playlist name
 
     # Removes IDs found online if there are songs that were removed
     for i in songID_new:
@@ -109,7 +114,7 @@ def backupChecker(playlistData):
 
     # PySimpleGUI output
     if len(songID_local) > 0:
-        layout = [[sg.Text(str(len(songID_local)) + " songs removed from your playlist: ")],
+        layout = [[sg.Text(str(len(songID_local)) + ' songs removed from playlist "' + title + '": ')],
                   [sg.Multiline(size=(55, 9), key="output")],
                   [sg.OK()]]
         window = sg.Window('Result', layout, modal=True, finalize=True)
