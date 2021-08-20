@@ -15,11 +15,12 @@ def main(theme_name):
                 ['Help', ['Check for Update', 'Open Github', '---', 'About']]]
     layout = [[sg.Menu(menu_def)],
               [sg.Text('Enter a playlist ID to back up:')],
-              [sg.InputText(do_not_clear=False, size=(100, 1))],
+              [sg.InputText(do_not_clear=False, size=(100, 1), key="ID")],
               [sg.Button('Back up!', size=(10, 1))],
               [sg.Text('_'*55)],  # Horizontal separator
               [sg.Text('Check a playlist against your backup:')],
-              [sg.InputText(key='inputFile', do_not_clear=False, size=(46, 1)), sg.FileBrowse(target='inputFile')],
+              [sg.InputText(key='inputFile', size=(46, 1), enable_events=True), sg.FileBrowse(
+                  target='inputFile', file_types=(("JSON Files", "*.json"), ("All Files", "*.*")))],
               [sg.Button('Check!', size=(10, 1))]]
 
     window = sg.Window('Playlist Backup Tool', layout, size=(420, 211))
@@ -32,6 +33,22 @@ def main(theme_name):
             # If user closes window or clicks exit
             if event == sg.WIN_CLOSED or event == 'Exit':
                 break
+
+            # When a backup file is selected, ID InputText autofills
+            if event == "inputFile":
+                if path.isfile(values['inputFile']):
+                    try:  # See if file is JSON
+                        with open(values['inputFile'], encoding='utf-8') as f:
+                            playlist_data = json.load(f)
+                    except:
+                        continue
+                    try:
+                        id = playlist_data["id"]  # Soundcloud format
+                    except:
+                        id = playlist_data[0]["items"][0]["snippet"]["playlistId"]
+
+                    window["inputFile"].update(values["inputFile"])  # inputFile manual fill cuz FileBrowse doesn't? idk
+                    window["ID"].update(id)
 
             # Opens the Github page
             elif event == 'Open Github':

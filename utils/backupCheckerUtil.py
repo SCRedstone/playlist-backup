@@ -72,7 +72,7 @@ def backupChecker(playlistData):
 
     # PySimpleGUI output
     if len(songID_local) > 0:
-        layout = [[sg.Text(str(len(songID_local)) + " songs removed from playlist " + title + ": ")],
+        layout = [[sg.Text(str(len(songID_local)) + " songs were removed from playlist " + title + ": ")],
                   [sg.Multiline(size=(55, 9), key="output")],
                   [sg.OK()]]
         window = sg.Window('Result', layout, modal=True, finalize=True)
