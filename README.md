@@ -2,7 +2,7 @@
 Have you never noticed songs disappearing from your favourite YouTube/Soundcloud music playlists? This tool:
 
 * Creates backups of YouTube and Soundcloud playlists
-* Identifies deleted playlist contents by comparing it to your backups
+* Identifies deleted playlist contents by comparing it to backups
 
 #### [DOWNLOAD NOW!](https://github.com/SCRedstone/playlist-backup/releases)
 
@@ -14,10 +14,14 @@ Have you never noticed songs disappearing from your favourite YouTube/Soundcloud
 2. Launch the program and paste the API key(s) via <b>Menu > Settings</b>, then save.
 
 #### How to obtain playlist IDs
-* <b>YouTube playlist IDs</b>: Grab the part of the playlist URL after `playlist?list=[...]`
-* <b>Soundcloud playlist ID</b>: Under a playlist, click <b>Share > Embed</b> and in the Code box, look for the numbers after `api.soundcloud.com/playlists/[...]`
+* <b>YouTube playlist IDs</b>: Grab the part of the playlist URL in `/playlist?list=[...]`
+* <b>Soundcloud playlist ID</b>: Under a playlist, click <b>Share > Embed</b> and in the Code box, look for the numbers in `api.soundcloud.com/playlists/[...]`
 
 ## Usage Notes
 * Please ensure your API quota has not been met. This prevents errors and fragmented backups.
-* <b>Ensure all playlists are public/unlisted</b>, otherwise the program can't access the playlist.
+* <b>Ensure all playlists are public/unlisted</b>, otherwise the program has no access.
 * By default, backups save into the program's `backup` folder.
+
+## Screenshots
+![Main menu](https://i.imgur.com/t0uwnje.png "Main menu")
+![Results window](https://i.imgur.com/op84Dj7.png "Results window")
