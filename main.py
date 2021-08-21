@@ -34,21 +34,22 @@ def main(theme_name):
             if event == sg.WIN_CLOSED or event == 'Exit':
                 break
 
-            # When a backup file is selected, ID InputText autofills
+            # ID InputText autofills when a backup file is selected
             if event == "inputFile":
-                if path.isfile(values['inputFile']):
+                if path.isfile(values['inputFile']):  # If file exists
+                    playlist_id = ""
                     try:  # See if file is JSON
                         with open(values['inputFile'], encoding='utf-8') as f:
                             playlist_data = json.load(f)
-                    except:
+                        if playlist_data[-1]["playlist-type"] == "Soundcloud":
+                            playlist_id = playlist_data[0]["id"]  # Soundcloud format
+                        elif playlist_data[-1]["playlist-type"] == "YouTube":
+                            playlist_id = playlist_data[0]["items"][0]["snippet"]["playlistId"]
+                    except Exception as e:
+                        error(str(e) + "\n\nFile could not be read - " +
+                              "your backup might be incompatible with this program version. Please make a new backup!")
                         continue
-                    try:
-                        id = playlist_data["id"]  # Soundcloud format
-                    except:
-                        id = playlist_data[0]["items"][0]["snippet"]["playlistId"]
-
-                    window["inputFile"].update(values["inputFile"])  # inputFile manual fill cuz FileBrowse doesn't? idk
-                    window["ID"].update(id)
+                    window["ID"].update(playlist_id)
 
             # Opens the Github page
             elif event == 'Open Github':
@@ -59,9 +60,12 @@ def main(theme_name):
                 about_window = sg.Window("About",
                                          [[sg.T("PLAYLIST BACKUP", font=("Helvetica", 12, "bold"))],
                                           [sg.T("v0.8.1", font=("Helvetica", 9))],
-                                          [sg.T("Playlist Backup Tool is a small program to make backups of Soundcloud and YouTube playlists in order to identify any deleted or removed playlist contents.\n"
+                                          [sg.T("Have you never noticed songs disappearing from your favourite YouTube "
+                                                "and Soundcloud music playlists? Playlist Backup Tool is a small "
+                                                "program that identifies deleted playlist contents via "
+                                                "playlist backup files.\n"
                                                 "For any questions, please consult the Github repository.\n"
-                                                "Made by Redstone. Thanks for your support!", size=(50, 5))],
+                                                "Made by Redstone. Thanks for your support!", size=(50, 6))],
                                           [sg.OK(size=(15, 1))]],
                                          modal=True)
                 while True:
@@ -127,9 +131,9 @@ def main(theme_name):
 
             # BACKUP MAKER
             elif event == "Back up!":
-                if values[1] == "":  # If field is empty, nothing happens
+                if values["ID"] == "":  # If field is empty, nothing happens
                     continue
-                backupMaker(values[1])
+                backupMaker(values["ID"])
 
             # BACKUP CHECKER
             elif event == 'Check!':
@@ -138,7 +142,7 @@ def main(theme_name):
                 elif path.isfile(values['inputFile']) is False:  # If path is not found
                     error("File not found!")
                     continue
-                try:  # See if file is JSON (doesn't check if it's actually in proper format)
+                try:  # See if file opens/is JSON
                     with open(values['inputFile'], encoding='utf-8') as f:
                         playlistData = json.load(f)
                 except Exception as e:

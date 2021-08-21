@@ -6,6 +6,7 @@ from utils.errorPopupUtil import error
 from utils.playlistGetUtil import sc_get, yt_get
 
 
+# Extract YouTube playlist metadata (for data from backups, param must include [:-1] to ignore 'playlist-type')
 def yt_extract(data):
     song_id, song, artist, playlist_id = [], [], [], []
     for y in data:
@@ -15,14 +16,13 @@ def yt_extract(data):
                 song.append(x["snippet"]["title"])
                 artist.append(x["snippet"]["videoOwnerChannelTitle"])
                 playlist_id.append(x["snippet"]["playlistId"])  # playlist_id gets filled with the same thing
-
     return artist, song, song_id, playlist_id[0]
 
 
+# Extract Soundcloud playlist metadata (for data from backups, param must include [0] to ignore 'playlist-type')
 def sc_extract(data):
-    # Iterates through 'track' array to get all track IDs
     sc_id, artists, songs = [], [], []
-    for x in data["tracks"]:
+    for x in data["tracks"]:  # Iterates through 'track' array to get all track IDs
         sc_id.append(x["id"])
         songs.append(x["title"])
         artists.append(x["user"]["username"])
@@ -38,28 +38,24 @@ def backupChecker(playlistData):
     CLIENT_ID = keys["client_id"]
     DEVELOPER_KEY = keys["YT_devkey"]
 
-    # Extract metadata from local backup
     username_local, song_local, songID_local, playlistID_local, title = [], [], [], "", "<PLAYLIST NAME>"
     songID_new = []  # Stores newly retrieved song IDs
-    try:
-        username_local, song_local, songID_local, playlistID_local = yt_extract(playlistData)
-        clientType = "YT"
-    except:
-        username_local, song_local, songID_local, playlistID_local = sc_extract(playlistData)
-        clientType = "SC"
 
-    # Extract metadata from online playlist
-    if clientType == "YT":
+    # Fetch metadata from both local and online playlists
+    if playlistData[-1]["playlist-type"] == "YouTube":
+        username_local, song_local, songID_local, playlistID_local = yt_extract(playlistData[:-1])
         if DEVELOPER_KEY == "":
             error("YouTube API key is missing! Please check your settings.")
             return
-        extracted, title = yt_get(playlistID_local, DEVELOPER_KEY)
+        extracted, title = yt_get(playlistID_local, DEVELOPER_KEY)  # Fetch online playlist
         x, y, songID_new, z = yt_extract(extracted)  # Only need song ID
-    elif clientType == "SC":
+
+    elif playlistData[-1]["playlist-type"] == "Soundcloud":
+        username_local, song_local, songID_local, playlistID_local = sc_extract(playlistData[0])
         if CLIENT_ID == "":
             error("Soundcloud API key is missing! Please check your settings.")
             return
-        extracted, title = sc_get(playlistID_local, CLIENT_ID)
+        extracted, title = sc_get(playlistID_local, CLIENT_ID)  # Fetch online playlist
         x, y, songID_new, z = sc_extract(extracted)  # Only need song ID
 
     # Removes IDs found online if there are songs that were removed

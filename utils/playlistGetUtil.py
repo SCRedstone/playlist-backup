@@ -13,7 +13,6 @@ import requests
 def sc_get(set_id, CLIENT_ID):
     with urllib.request.urlopen("https://api.soundcloud.com/playlists/" + str(set_id) + "?client_id=" + CLIENT_ID) as url:
         playlist = json.loads(url.read().decode())
-
     title = '"' + playlist["title"] + '"'  # Extract playlist name from response
     return playlist, title
 
