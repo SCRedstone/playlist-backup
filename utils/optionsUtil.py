@@ -23,10 +23,8 @@ def editor():
 
     while True:
         event, values = window.read()
-
         if event == 'Cancel' or event == sg.WIN_CLOSED:
             break
-
         elif event == 'Save':
             keys["client_id"] = values["SCKey"]
             keys["YT_devkey"] = values["YTKey"]

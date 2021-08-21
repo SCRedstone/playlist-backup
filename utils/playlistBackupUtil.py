@@ -18,22 +18,24 @@ def backupMaker(playlistID):
     savePath = keys["savePath"]
 
     extracted, client, title = "", "", "<PLAYLIST NAME>"  # Init
-    if playlistID.isdigit():  # If playlistID is an integer
+    if playlistID.isdigit():  # If playlistID is Soundcloud
         playlistID = int(playlistID)
         if CLIENT_ID == "":
             error("Soundcloud API key is missing! Please check your settings.")
             return
         extracted, title = sc_get(playlistID, CLIENT_ID)
         client = "SC"
-    else:  # Otherwise it's a string
+        extracted = [extracted, {"playlist-type": "Soundcloud"}]
+    else:  # Otherwise it's YouTube ID string
         if DEVELOPER_KEY == "":
             error("YouTube API key is missing! Please check your settings.")
             return
         extracted, title = yt_get(playlistID, DEVELOPER_KEY)
         client = "YT"
+        extracted.append({"playlist-type": "YouTube"})
 
     # File saving
-    fileName = savePath + client + "-" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".json"
-    with open(fileName, 'w', encoding='utf8') as outfile:
+    savePath = savePath + client + "-" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".json"
+    with open(savePath, 'w', encoding='utf8') as outfile:
         json.dump(extracted, outfile, indent=2, ensure_ascii=False)
-    sg.Popup(title + ' has been successfully saved to "' + fileName + '"', title="Result")
+    sg.Popup(title + ' has been successfully saved to "' + savePath + '"', title="Result")
