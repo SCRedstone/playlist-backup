@@ -116,3 +116,4 @@ dmypy.json
 # Custom
 .idea/
 To-Do.txt
+*.bat
