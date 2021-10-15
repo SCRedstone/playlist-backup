@@ -21,7 +21,7 @@ Have you never noticed songs disappearing from your favourite YouTube/Soundcloud
 * Please ensure your API quota has not been met. This prevents errors and fragmented backups.
 * **Ensure all playlists are public/unlisted**, otherwise the program has no access.
 * By default, backups save into the program's `backup` folder.
-* This program cannot catch videos that have been georestricted in your region, showing up as 'unavailable videos' in playlists. To identify such songs: play a playlist, press **CTRL+F**, and type `video blocked in country`. Georestricted videos should be highlighted in the playlist side-menu.
+* This program cannot catch YouTube videos that have been georestricted in your region, showing up as 'unavailable videos' in playlists. <strike>To identify such songs: play a playlist, press **CTRL+F**, and type `video blocked in country`. Georestricted videos should be highlighted in the playlist side-menu.</strike> This feature has been removed at this time. At the moment, you can only find the number of georestricted videos: Play a playlist and scroll to the bottom where it should say 'X unavailable videos are hidden'.
 
 ## Screenshots
 ![Main menu](https://i.imgur.com/t0uwnje.png "Main menu")
