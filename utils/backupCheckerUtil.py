@@ -36,6 +36,7 @@ def backupChecker(playlistData):
     with open("./config.json") as f:
         keys = json.load(f)
     CLIENT_ID = keys["client_id"]
+    CLIENT_SECRET = keys["client_secret"]
     DEVELOPER_KEY = keys["YT_devkey"]
 
     username_local, song_local, songID_local, playlistID_local, title = [], [], [], "", "<PLAYLIST NAME>"
@@ -52,10 +53,10 @@ def backupChecker(playlistData):
 
     elif playlistData[-1]["playlist-type"] == "Soundcloud":
         username_local, song_local, songID_local, playlistID_local = sc_extract(playlistData[0])
-        if CLIENT_ID == "":
+        if CLIENT_ID == "" or CLIENT_SECRET == "":
             error("Soundcloud API key is missing! Please check your settings.")
             return
-        extracted, title = sc_get(playlistID_local, CLIENT_ID)  # Fetch online playlist
+        extracted, title = sc_get(playlistID_local, CLIENT_ID, CLIENT_SECRET)  # Fetch online playlist
         x, y, songID_new, z = sc_extract(extracted)  # Only need song ID
 
     # Removes IDs found online if there are songs that were removed

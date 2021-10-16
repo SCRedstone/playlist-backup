@@ -14,16 +14,16 @@ def backupMaker(playlistID):
     with open("./config.json") as f:
         keys = json.load(f)
     CLIENT_ID = keys["client_id"]
+    CLIENT_SECRET = keys["client_secret"]
     DEVELOPER_KEY = keys["YT_devkey"]
     savePath = keys["savePath"]
 
     extracted, client, title = "", "", "<PLAYLIST NAME>"  # Init
     if playlistID.isdigit():  # If playlistID is Soundcloud
-        playlistID = int(playlistID)
-        if CLIENT_ID == "":
+        if CLIENT_ID == "" or CLIENT_SECRET == "":
             error("Soundcloud API key is missing! Please check your settings.")
             return
-        extracted, title = sc_get(playlistID, CLIENT_ID)
+        extracted, title = sc_get(playlistID, CLIENT_ID, CLIENT_SECRET)
         client = "SC"
         extracted = [extracted, {"playlist-type": "Soundcloud"}]
     else:  # Otherwise it's YouTube ID string

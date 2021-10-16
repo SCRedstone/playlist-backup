@@ -59,9 +59,9 @@ def main(theme_name):
             elif event == 'About':
                 about_window = sg.Window("About",
                                          [[sg.T("PLAYLIST BACKUP", font=("Helvetica", 12, "bold"))],
-                                          [sg.T("v0.8.1", font=("Helvetica", 9))],
-                                          [sg.T("Have you never noticed songs disappearing from your favourite YouTube "
-                                                "and Soundcloud music playlists? Playlist Backup Tool is a small "
+                                          [sg.T("v0.10.1", font=("Helvetica", 9))],
+                                          [sg.T("Ever noticed songs disappearing from your favourite playlists without "
+                                                "you knowing what they were? Playlist Backup Tool is a small "
                                                 "program that identifies deleted playlist contents via "
                                                 "playlist backup files.\n"
                                                 "For any questions, please consult the Github repository.\n"
@@ -108,10 +108,10 @@ def main(theme_name):
                 except Exception as e:  # Mostly for if no internet
                     error("Versioning could not be retrieved at this time.\n" + str(e))
                     continue
-                if 81 < ver_int:
+                if 101 < ver_int:
                     update_window = sg.Window("Updater",
                                               [[sg.T("A new update is available!", size=(25, 1))],
-                                               [sg.T("Current version: v0.8.1")],
+                                               [sg.T("Current version: v0.10.1")],
                                                [sg.T("New version: " + ver_full)],
                                                [sg.B("Open download page"), sg.B("Maybe later", key="OK")]],
                                               modal=True)

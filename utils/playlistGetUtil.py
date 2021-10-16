@@ -10,9 +10,24 @@ from utils.extract import json_extract
 import requests
 
 
-def sc_get(set_id, CLIENT_ID):
-    with urllib.request.urlopen("https://api.soundcloud.com/playlists/" + str(set_id) + "?client_id=" + CLIENT_ID) as url:
-        playlist = json.loads(url.read().decode())
+def sc_get(set_id, CLIENT_ID, CLIENT_SECRET):
+    # OAuth get
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    data = {
+        'grant_type': 'client_credentials',
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET
+    }
+    oauth = requests.post('https://api.soundcloud.com/oauth2/token', headers=headers, data=data).json()["access_token"]
+
+    # Get playlist
+    headers = {
+        'accept': 'application/json; charset=utf-8',
+        'Authorization': 'OAuth ' + oauth,
+    }
+    playlist = requests.get('https://api.soundcloud.com/playlists/' + set_id, headers=headers).json()
     title = '"' + playlist["title"] + '"'  # Extract playlist name from response
     return playlist, title
 

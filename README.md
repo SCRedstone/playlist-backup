@@ -1,5 +1,5 @@
 # Redstone's Playlist Backup Tool
-Have you never noticed songs disappearing from your favourite YouTube/Soundcloud music playlists? This tool:
+Ever noticed songs disappearing from your favourite playlists without you knowing what they were? This tool:
 
 * Creates backups of YouTube and Soundcloud playlists
 * Identifies deleted playlist contents by comparing it to backups
@@ -7,10 +7,10 @@ Have you never noticed songs disappearing from your favourite YouTube/Soundcloud
 #### [DOWNLOAD NOW!](https://github.com/SCRedstone/playlist-backup/releases)
 
 ## First-time Setup
-* Due to rate limiting issues, **users must provide their own YouTube and Soundcloud API keys**.
+* Due to rate limiting issues, **users must provide their own YouTube and/or Soundcloud API keys**.
 1. Obtain an API key for the service(s) you want to use.
-   * For YouTube API, please enable the `youtube` scope.
-2. Launch the program and paste the API key(s) via **Menu > Settings**, then save.
+   * For YouTube API, please enable at least the `youtube` scope.
+2. Launch the program, paste the API key(s) via **Menu > Settings**, then save.
 
 #### How to obtain playlist IDs
 * **YouTube playlist IDs**: Grab the part of the playlist URL in `/playlist?list=[...]`

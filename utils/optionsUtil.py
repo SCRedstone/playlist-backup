@@ -11,8 +11,9 @@ def editor():
         keys = json.load(f)
     saveLocation = keys["savePath"]
 
-    layout = [[sg.T("Soundcloud API Key:", size=(15, 1)), sg.InputText(keys["client_id"], key="SCKey", size=(40, 1))],
-              [sg.T("YouTube API Key:", size=(15, 1)), sg.InputText(keys["YT_devkey"], key="YTKey", size=(40, 1))],
+    layout = [[sg.T("Soundcloud API Key:", size=(17, 1)), sg.InputText(keys["client_id"], key="SCKey", size=(40, 1))],
+              [sg.T("Soundcloud API Secret:", size=(17, 1)), sg.InputText(keys["client_secret"], key="SCSecret", size=(40, 1))],
+              [sg.T("YouTube API Key:", size=(17, 1)), sg.InputText(keys["YT_devkey"], key="YTKey", size=(40, 1))],
               [sg.T("_"*59)],
               [sg.T("Select where to save your backups:")],
               [sg.InputText(key='directory', size=(50, 1)), sg.FolderBrowse(target='directory')],
@@ -27,6 +28,7 @@ def editor():
             break
         elif event == 'Save':
             keys["client_id"] = values["SCKey"]
+            keys["client_secret"] = values["SCSecret"]
             keys["YT_devkey"] = values["YTKey"]
             if values["directory"] != "":  # If the field is empty, it won't save a blank
                 keys["savePath"] = values["directory"] + "/"
