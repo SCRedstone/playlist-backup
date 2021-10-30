@@ -162,6 +162,15 @@ if __name__ == "__main__":
     restart = True
     while restart is True:
         try:
+            if not path.isfile("config.json"):  # If config file doesn't exist
+                with open("config.json", 'w') as file:
+                    json.dump({
+                        "client_id": "",
+                        "client_secret": "",
+                        "YT_devkey": "",
+                        "savePath": "backup/",
+                        "theme": "SystemDefault"
+                    }, file, indent=2, ensure_ascii=False)
             with open("config.json") as file:
                 config = json.load(file)
         except Exception as err:
