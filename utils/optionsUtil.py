@@ -1,7 +1,7 @@
 ''' Options menu edits settings in config.json '''
 
 import json
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 
 
 def editor():

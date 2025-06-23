@@ -1,6 +1,6 @@
 ''' Generates standard error dialogs '''
 
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 from webbrowser import open as webpage
 
 

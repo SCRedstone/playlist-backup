@@ -2,7 +2,7 @@
 
 import json
 from datetime import datetime
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 from utils.errorPopupUtil import error
 from utils.playlistGetUtil import sc_get, yt_get
 
@@ -19,7 +19,7 @@ def backupMaker(playlistID):
     savePath = keys["savePath"]
 
     extracted, client, title = "", "", "<PLAYLIST NAME>"  # Init
-    if playlistID.isdigit():  # If playlistID is Soundcloud
+    if "soundcloud:playlists:" in playlistID:  # If playlistID is Soundcloud
         if CLIENT_ID == "" or CLIENT_SECRET == "":
             error("Soundcloud API key is missing! Please check your settings.")
             return

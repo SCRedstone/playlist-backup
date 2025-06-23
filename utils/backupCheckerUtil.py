@@ -1,7 +1,7 @@
 ''' BACKUP CHECKER uses pre-made backup json files to check and identify deleted YT/SC songs in a playlist '''
 
 import json
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 from utils.errorPopupUtil import error
 from utils.playlistGetUtil import sc_get, yt_get
 
@@ -23,10 +23,10 @@ def yt_extract(data):
 def sc_extract(data):
     sc_id, artists, songs = [], [], []
     for x in data["tracks"]:  # Iterates through 'track' array to get all track IDs
-        sc_id.append(x["id"])
+        sc_id.append(x["urn"])
         songs.append(x["title"])
         artists.append(x["user"]["username"])
-    return artists, songs, sc_id, str(data["id"])
+    return artists, songs, sc_id, str(data["urn"])
 
 
 # MAIN FUNCTION

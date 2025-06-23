@@ -8,6 +8,7 @@ import googleapiclient.discovery
 import googleapiclient.errors
 from utils.extract import json_extract
 import requests
+from base64 import b64encode
 
 
 def sc_get(set_id, CLIENT_ID, CLIENT_SECRET):
