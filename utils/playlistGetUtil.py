@@ -14,13 +14,13 @@ def sc_get(set_id, CLIENT_ID, CLIENT_SECRET):
     # OAuth get
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
+        'accept': 'application/json; charset=utf-8',
+        'Authorization': "Basic " + b64encode(bytes(CLIENT_ID + ":" + CLIENT_SECRET, 'utf-8')).decode('utf-8')
     }
     data = {
-        'grant_type': 'client_credentials',
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET
+        'grant_type': 'client_credentials'
     }
-    oauth = requests.post('https://api.soundcloud.com/oauth2/token', headers=headers, data=data).json()["access_token"]
+    oauth = requests.post('https://secure.soundcloud.com/oauth/token', headers=headers, data=data).json()["access_token"]
 
     # Get playlist
     headers = {
