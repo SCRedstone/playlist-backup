@@ -17,10 +17,10 @@ Ever noticed songs disappearing from your favourite playlists without you knowin
 * **Soundcloud playlist ID**: Under a playlist, click <b>Share > Embed</b> and in the Code box, look for the numbers in `api.soundcloud.com/playlists/[...]`
 
 ## Usage Notes
-* Windows OS only
-* Please ensure your API quota has not been met. This prevents errors and fragmented backups.
+* Windows OS only, or simply download this repo, install all dependencies, and run `main.py`.
 * **Ensure all playlists are public/unlisted**, otherwise the program has no access.
-* By default, backups save into the program's `backup` folder.
+* Please ensure your API quota has not been met. This prevents errors and fragmented backups.
+* **Keep `config.json` safe**!! API keys are saved as **plain text** into `config.json` within the root folder. Meanwhile, backups save into the program's `backup` folder by default.
 * This program cannot catch YouTube videos that have been georestricted in your region, showing up as 'unavailable videos' in playlists. <strike>To identify such songs: play a playlist, press **CTRL+F**, and type `video blocked in country`. Georestricted videos should be highlighted in the playlist side-menu.</strike> This feature has been removed at this time. At the moment, you can only find the number of georestricted videos: Play a playlist and scroll to the bottom where it should say 'X unavailable videos are hidden'.
 
 ## Screenshots
