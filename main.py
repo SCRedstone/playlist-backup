@@ -2,7 +2,7 @@ import json
 import requests
 from os import path
 from webbrowser import open as webpage
-import PySimpleGUI as sg
+import FreeSimpleGUI as sg
 from utils.errorPopupUtil import error
 from utils.backupCheckerUtil import backupChecker
 from utils.optionsUtil import editor
@@ -42,12 +42,12 @@ def main(theme_name):
                         with open(values['inputFile'], encoding='utf-8') as f:
                             playlist_data = json.load(f)
                         if playlist_data[-1]["playlist-type"] == "Soundcloud":
-                            playlist_id = playlist_data[0]["id"]  # Soundcloud format
+                            playlist_id = playlist_data[0]["urn"]  # Soundcloud format
                         elif playlist_data[-1]["playlist-type"] == "YouTube":
                             playlist_id = playlist_data[0]["items"][0]["snippet"]["playlistId"]
                     except Exception as e:
-                        error(str(e) + "\n\nFile could not be read - " +
-                              "your backup might be incompatible with this program version. Please make a new backup!")
+                        error(str(e) + "\n\nFile could not be read. " +
+                              "Your backup might be incompatible with this program version. Please make a new backup!")
                         continue
                     window["ID"].update(playlist_id)
 
@@ -59,7 +59,7 @@ def main(theme_name):
             elif event == 'About':
                 about_window = sg.Window("About",
                                          [[sg.T("PLAYLIST BACKUP", font=("Helvetica", 12, "bold"))],
-                                          [sg.T("v0.10.1", font=("Helvetica", 9))],
+                                          [sg.T("v0.11.0", font=("Helvetica", 9))],
                                           [sg.T("Ever noticed songs disappearing from your favourite playlists without "
                                                 "you knowing what they were? Playlist Backup Tool is a small "
                                                 "program that identifies deleted playlist contents via "
@@ -108,10 +108,10 @@ def main(theme_name):
                 except Exception as e:  # Mostly for if no internet
                     error("Versioning could not be retrieved at this time.\n" + str(e))
                     continue
-                if 101 < ver_int:
+                if 110 < ver_int:
                     update_window = sg.Window("Updater",
                                               [[sg.T("A new update is available!", size=(25, 1))],
-                                               [sg.T("Current version: v0.10.1")],
+                                               [sg.T("Current version: v0.11.0")],
                                                [sg.T("New version: " + ver_full)],
                                                [sg.B("Open download page"), sg.B("Maybe later", key="OK")]],
                                               modal=True)
@@ -162,15 +162,6 @@ if __name__ == "__main__":
     restart = True
     while restart is True:
         try:
-            if not path.isfile("config.json"):  # If config file doesn't exist
-                with open("config.json", 'w') as file:
-                    json.dump({
-                        "client_id": "",
-                        "client_secret": "",
-                        "YT_devkey": "",
-                        "savePath": "backup/",
-                        "theme": "SystemDefault"
-                    }, file, indent=2, ensure_ascii=False)
             with open("config.json") as file:
                 config = json.load(file)
         except Exception as err:
