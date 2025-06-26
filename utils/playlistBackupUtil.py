@@ -5,6 +5,7 @@ from datetime import datetime
 import FreeSimpleGUI as sg
 from utils.errorPopupUtil import error
 from utils.playlistGetUtil import sc_get, yt_get
+from os import makedirs
 
 
 # MAIN PROGRAM
@@ -35,6 +36,7 @@ def backupMaker(playlistID):
         extracted.append({"playlist-type": "YouTube"})
 
     # File saving
+    makedirs(savePath, exist_ok=True)  # Make folder if folder doesn't exist
     savePath = savePath + client + "-" + datetime.now().strftime("%Y%m%d-%H%M%S") + ".json"
     with open(savePath, 'w', encoding='utf8') as outfile:
         json.dump(extracted, outfile, indent=2, ensure_ascii=False)
