@@ -65,7 +65,7 @@ def main(theme_name):
                                                 "program that identifies deleted playlist contents via "
                                                 "playlist backup files.\n"
                                                 "For any questions, please consult the Github repository.\n"
-                                                "Made by Redstone. Thanks for your support!", size=(50, 6))],
+                                                "Made by Redstone. Thanks for your support!", size=(55, 6))],
                                           [sg.OK(size=(15, 1))]],
                                          modal=True)
                 while True:
@@ -160,8 +160,17 @@ def main(theme_name):
 
 if __name__ == "__main__":
     restart = True
-    while restart is True:
+    while restart:
         try:
+            if not path.isfile("config.json"):  # If config file doesn't exist
+                with open("config.json", 'w') as file:
+                    json.dump({
+                        "client_id": "",
+                        "client_secret": "",
+                        "YT_devkey": "",
+                        "savePath": "backup/",
+                        "theme": "SystemDefault"
+                    }, file, indent=2, ensure_ascii=False)
             with open("config.json") as file:
                 config = json.load(file)
         except Exception as err:
