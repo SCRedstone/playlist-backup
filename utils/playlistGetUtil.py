@@ -28,7 +28,7 @@ def sc_get(set_id, CLIENT_ID, CLIENT_SECRET):
         'accept': 'application/json; charset=utf-8',
         'Authorization': 'OAuth ' + oauth,
     }
-    playlist = requests.get('https://api.soundcloud.com/playlists/' + set_id, headers=headers).json()
+    playlist = requests.get('https://api.soundcloud.com/playlists/' + set_id + '?access=playable,preview,blocked&show_tracks=true', headers=headers).json()
     title = '"' + playlist["title"] + '"'  # Extract playlist name from response
     return playlist, title
 
