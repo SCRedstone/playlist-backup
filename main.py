@@ -23,7 +23,7 @@ def main(theme_name):
                   target='inputFile', file_types=(("JSON Files", "*.json"), ("All Files", "*.*")))],
               [sg.Button('Check!', size=(10, 1))]]
 
-    window = sg.Window('Playlist Backup Tool', layout, size=(420, 211))
+    window = sg.Window('Playlist Backup Tool', layout, size=(420, 211), icon='PlaylistBackupIcon.ico')
 
     try:
         # Event Loop to process "events" and get the "values" of the inputs
@@ -66,7 +66,7 @@ def main(theme_name):
                                                 "For any questions, please consult the Github repository.\n"
                                                 "Made by Redstone. Thanks for your support!", size=(55, 6))],
                                           [sg.OK(size=(15, 1))]],
-                                         modal=True)
+                                         modal=True, icon='PlaylistBackupIcon.ico')
                 while True:
                     events, values = about_window.read()
                     if events == sg.WIN_CLOSED or events == "OK":
@@ -83,7 +83,7 @@ def main(theme_name):
                                          [[sg.T("Current theme: " + theme_name)],
                                           [sg.Listbox(values=sg.theme_list(), key="themes", size=(21, 11))],
                                           [sg.OK()]],
-                                         modal=True)
+                                         modal=True, icon='PlaylistBackupIcon.ico')
                 while True:
                     events, values = theme_window.read()
                     if events == sg.WIN_CLOSED:
@@ -112,12 +112,12 @@ def main(theme_name):
                                                [sg.T("Current version: v0.11.1")],
                                                [sg.T("New version: " + ver_full)],
                                                [sg.B("Open download page"), sg.B("Maybe later", key="OK")]],
-                                              modal=True)
+                                              modal=True, icon='PlaylistBackupIcon.ico')
                 else:
                     update_window = sg.Window("Updater",
                                               [[sg.T("There are no new updates at this time.\n")],
                                                [sg.B("OK")]],
-                                              modal=True)
+                                              modal=True, icon='PlaylistBackupIcon.ico')
 
                 while True:
                     events, values = update_window.read()

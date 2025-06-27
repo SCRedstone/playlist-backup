@@ -11,7 +11,7 @@ def error(e):
                                        tooltip="Launch browser", key="link", font=("Helvetica", 9, "underline"),
                                        text_color="blue")],
                               [sg.OK(size=(41, 1))]],
-                             modal=True, finalize=True)
+                             modal=True, finalize=True, icon='PlaylistBackupIcon.ico')
     while True:
         events, values = error_window.read()
         if events == sg.WIN_CLOSED or events == "OK":

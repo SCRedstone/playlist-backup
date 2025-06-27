@@ -20,7 +20,7 @@ def editor():
               [sg.T("Current save location: " + saveLocation)],
               [sg.B("Save", size=(5, 1)), sg.Cancel()]]
 
-    window = sg.Window("Options", layout, modal=True)
+    window = sg.Window("Options", layout, modal=True, icon="PlaylistBackupIcon.ico")
 
     while True:
         event, values = window.read()

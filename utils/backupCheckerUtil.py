@@ -72,7 +72,7 @@ def backupChecker(playlistData):
         layout = [[sg.Text(str(len(songID_local)) + " songs were removed from playlist " + title + ": ")],
                   [sg.Multiline(size=(55, 9), key="output")],
                   [sg.OK()]]
-        window = sg.Window('Result', layout, modal=True, finalize=True)
+        window = sg.Window('Result', layout, modal=True, finalize=True, icon='PlaylistBackupIcon.ico')
 
         # Organize Multiline output
         for x in range(len(songID_local)):
